@@ -1,0 +1,32 @@
+{
+  "name": "projeto14-mywallet-back",
+  "version": "1.0.0",
+  "description": "Parte do projeto 14 da Driven - API do MyWallet",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lcfernandez/driven-projeto14-mywallet-back.git"
+  },
+  "keywords": [
+    "driven",
+    "mywallet",
+    "api",
+    "javascript",
+    "node",
+    "express",
+    "mongodb",
+    "joi",
+    "uuid",
+    "lcfernandez"
+  ],
+  "author": "lcfernandez",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/lcfernandez/driven-projeto14-mywallet-back/issues"
+  },
+  "homepage": "https://github.com/lcfernandez/driven-projeto14-mywallet-back#readme"
+}
