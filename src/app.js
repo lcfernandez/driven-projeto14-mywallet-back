@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import express from "express";
 import joi from "joi";
 
-import { postSignUp } from "./controllers/userController.js";
+import { postSignIn, postSignUp } from "./controllers/userController.js";
 
 
 // schemas
@@ -38,12 +38,13 @@ try {
 }
 
 const db = mongoClient.db(process.env.MONGO_DB);
+export const sessionsCollection = db.collection("sessions");
 export const usersCollection = db.collection("users");
 
 // sign routes
-/* app.post("/sign-in", () => {});
+app.post("/sign-in", postSignIn);
 
-app.post("/sign-out", () => {}); */
+// app.post("/sign-out", () => {});
 
 app.post("/sign-up", postSignUp);
 
