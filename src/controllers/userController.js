@@ -1,13 +1,11 @@
 import { v4 as uuidV4 } from "uuid";
 import bcrypt from "bcrypt";
 
-import
-    {
-        sessionsCollection,
-        userSchema,
-        usersCollection
-    }
-    from "../app.js";
+import {
+    sessionsCollection,
+    userSchema,
+    usersCollection
+} from "../app.js";
 
 export async function postSignIn(req, res) {
     const { email, password } = req.body;
@@ -47,13 +45,29 @@ export async function postSignIn(req, res) {
     }
 }
 
+export async function postSignOut(req, res) {
+    const { authorization } = req.headers;
+    const token = authorization?.replace("Bearer ", "");
+
+    try {
+        const session = await sessionsCollection.findOne({ token });
+  
+        if (!session) {
+            return res.sendStatus(404);
+        }
+
+        await sessionsCollection.deleteOne({ _id: session._id });
+
+        res.sendStatus(200);
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+}
+
 export async function postSignUp(req, res) {
     const user = req.body;
-    const { error } = userSchema.validate(user,
-        {
-            abortEarly: false
-        }
-    );
+    const { error } = userSchema.validate(user, { abortEarly: false });
 
     if (error) {
         return res.status(400).send(

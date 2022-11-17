@@ -4,7 +4,11 @@ import dotenv from "dotenv";
 import express from "express";
 import joi from "joi";
 
-import { postSignIn, postSignUp } from "./controllers/userController.js";
+import {
+    postSignIn,
+    postSignOut,
+    postSignUp
+} from "./controllers/userController.js";
 
 
 // schemas
@@ -44,7 +48,7 @@ export const usersCollection = db.collection("users");
 // sign routes
 app.post("/sign-in", postSignIn);
 
-// app.post("/sign-out", () => {});
+app.post("/sign-out", postSignOut);
 
 app.post("/sign-up", postSignUp);
 
