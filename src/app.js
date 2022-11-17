@@ -2,6 +2,19 @@ import { MongoClient } from "mongodb";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import joi from "joi";
+
+import { postSignUp } from "./controllers/userController.js";
+
+
+// schemas
+export const userSchema = joi.object(
+    {
+        name: joi.string().min(2).required(),
+        email: joi.string().email().required(),
+        password: joi.string().min(4).required()
+    }
+);
 
 
 // instance of express
@@ -25,6 +38,14 @@ try {
 }
 
 const db = mongoClient.db(process.env.MONGO_DB);
+export const usersCollection = db.collection("users");
+
+// sign routes
+/* app.post("/sign-in", () => {});
+
+app.post("/sign-out", () => {}); */
+
+app.post("/sign-up", postSignUp);
 
 
 // starts the server
