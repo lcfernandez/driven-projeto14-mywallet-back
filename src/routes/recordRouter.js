@@ -9,7 +9,8 @@ import {
 } from "../controllers/recordController.js";
 
 import { validateAuth } from "../middlewares/authValidationMiddleware.js";
-import { validatePutRecord, validateRecord } from "../middlewares/recordSchemaValidationMiddleware.js";
+import { validateRecordPut } from "../middlewares/recordPutSchemaValidationMiddleware.js";
+import { validateRecord } from "../middlewares/recordSchemaValidationMiddleware.js";
 
 
 const router = Router();
@@ -20,6 +21,6 @@ router.delete("/record/:id", deleteRecord);
 router.get("/record", getRecords);
 router.get("/record/:id", getRecord);
 router.post("/record", validateRecord, postRecord);
-router.put("/record/:id", validatePutRecord, putRecord);
+router.put("/record/:id", validateRecordPut, putRecord);
 
 export default router;
