@@ -3,9 +3,9 @@ import bcrypt from "bcrypt";
 
 import {
     sessionsCollection,
-    userSchema,
     usersCollection
-} from "../app.js";
+} from "../database/db.js";
+import userSchema from "../schemas/userSchema.js";
 
 export async function postSignIn(req, res) {
     const { email, password } = req.body;
