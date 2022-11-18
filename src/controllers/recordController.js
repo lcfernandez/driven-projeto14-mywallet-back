@@ -36,6 +36,26 @@ export async function deleteRecord(req, res) {
     }
 };
 
+export async function getRecords(req, res) {
+    const { authorization } = req.headers;
+    const token = authorization.replace("Bearer ", "");
+
+    try {
+        const session = await sessionsCollection.findOne({ token });
+
+        if (!session) {
+            return res.sendStatus(401);
+        }
+
+        const records = await recordsCollection.find({ user: session.user }).toArray();
+        
+        res.send(records);
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+}
+
 export async function postRecord(req, res) {
     const { authorization } = req.headers;
     const token = authorization.replace("Bearer ", "");

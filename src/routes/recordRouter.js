@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import {
     deleteRecord,
+    getRecords,
     postRecord,
     putRecord
 } from "../controllers/recordController.js";
@@ -15,6 +16,7 @@ const router = Router();
 router.use(validateAuth);
 
 router.delete("/record/:id", deleteRecord);
+router.get("/record", getRecords);
 router.post("/record", validateRecord, postRecord);
 router.put("/record/:id", validatePutRecord, putRecord);
 
