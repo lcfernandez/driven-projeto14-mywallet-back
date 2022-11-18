@@ -1,3 +1,5 @@
+import { ObjectId } from "mongodb";
+
 import {
     recordsCollection,
     sessionsCollection,
@@ -18,6 +20,36 @@ export async function postRecord(req, res) {
         const user = await usersCollection.findOne({ _id: session.user });
        
         await recordsCollection.insertOne({...req.body, user: user._id });
+    
+        res.sendStatus(201);
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+};
+
+export async function deleteRecord(req, res) {
+    const { authorization } = req.headers;
+    const token = authorization.replace("Bearer ", "");
+
+    try {
+        const session = await sessionsCollection.findOne({ token });
+
+        if (!session) {
+            return res.sendStatus(401);
+        }
+
+        const record = await recordsCollection.findOne({ _id: new ObjectId(req.params) });
+
+        if (!record) {
+            return res.sendStatus(404);
+        }
+
+        if (!record.user.equals(session.user)) {
+            return res.sendStatus(401);
+        }
+       
+        await recordsCollection.deleteOne({ _id: record._id });
     
         res.sendStatus(201);
     } catch (err) {

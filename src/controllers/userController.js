@@ -5,6 +5,7 @@ import {
     sessionsCollection,
     usersCollection
 } from "../database/db.js";
+
 import userSchema from "../schemas/userSchema.js";
 
 export async function postSignIn(req, res) {
@@ -91,7 +92,7 @@ export async function postSignUp(req, res) {
             }
         );
 
-        res.sendStatus(201);
+        res.sendStatus(200);
     } catch (err) {
         console.log(err);
         res.sendStatus(500);
