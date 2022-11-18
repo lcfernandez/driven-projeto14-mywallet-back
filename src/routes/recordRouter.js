@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import {
     deleteRecord,
+    getRecord,
     getRecords,
     postRecord,
     putRecord
@@ -17,6 +18,7 @@ router.use(validateAuth);
 
 router.delete("/record/:id", deleteRecord);
 router.get("/record", getRecords);
+router.get("/record/:id", getRecord);
 router.post("/record", validateRecord, postRecord);
 router.put("/record/:id", validatePutRecord, putRecord);
 
