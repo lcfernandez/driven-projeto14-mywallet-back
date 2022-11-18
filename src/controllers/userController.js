@@ -92,7 +92,7 @@ export async function postSignUp(req, res) {
             }
         );
 
-        res.sendStatus(200);
+        res.sendStatus(201);
     } catch (err) {
         console.log(err);
         res.sendStatus(500);
