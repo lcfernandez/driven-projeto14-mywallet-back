@@ -18,5 +18,6 @@ try {
 
 
 const db = mongoClient.db(process.env.MONGO_DB);
+export const recordsCollection = db.collection("records");
 export const sessionsCollection = db.collection("sessions");
 export const usersCollection = db.collection("users");

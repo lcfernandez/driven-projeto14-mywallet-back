@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 
 import authRouter from "./routes/authRouter.js"
+import recordRouter from "./routes/recordRouter.js"
 
 
 // instance of express
@@ -13,6 +14,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(authRouter);
+app.use(recordRouter);
 dotenv.config();
 
 

@@ -23,7 +23,7 @@ export async function postSignIn(req, res) {
             return res.sendStatus(401);
         }
 
-        const session = await sessionsCollection.findOne({ userId: user._id });
+        const session = await sessionsCollection.findOne({ user: user._id });
   
         if (session) {
             return res.status(409).send({ message: "Usuário já logado." });
@@ -33,7 +33,7 @@ export async function postSignIn(req, res) {
 
         await sessionsCollection.insertOne(
             {
-                userId: user._id,
+                user: user._id,
                 token
             }
         );
