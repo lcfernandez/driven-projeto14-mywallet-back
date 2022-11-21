@@ -1,10 +1,11 @@
-import { ObjectId } from "mongodb";
-
 import {
     recordsCollection,
     sessionsCollection,
     usersCollection
 } from "../database/db.js";
+
+import { ObjectId } from "mongodb";
+import dayjs from "dayjs";
 
 export async function deleteRecord(req, res) {
     const { authorization } = req.headers;
@@ -76,8 +77,23 @@ export async function getRecords(req, res) {
         }
 
         const records = await recordsCollection.find({ user: session.user }).toArray();
+        const user = await usersCollection.findOne({ _id: session.user });
+        let balance = 0;
+
+        records.forEach(
+            record => {
+                record.type === "expense" ? balance -= record.amount : balance += record.amount;
+                delete record.user
+            }
+        );
         
-        res.send(records);
+        res.send(
+            {
+                user: user.name,
+                records,
+                balance
+            }
+        );
     } catch (err) {
         console.log(err);
         res.sendStatus(500);
@@ -97,7 +113,7 @@ export async function postRecord(req, res) {
 
         const user = await usersCollection.findOne({ _id: session.user });
        
-        await recordsCollection.insertOne({ ...req.body, user: user._id });
+        await recordsCollection.insertOne({ ...req.body, date: dayjs().format("DD/MM/YYYY"), user: user._id });
     
         res.sendStatus(201);
     } catch (err) {
