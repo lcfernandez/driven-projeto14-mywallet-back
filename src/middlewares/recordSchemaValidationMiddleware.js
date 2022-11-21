@@ -2,7 +2,7 @@ import recordSchema from "../schemas/recordSchema.js"
 
 
 export function validateRecord(req, res, next) {
-    const record = req.body;
+    const record = { ...req.body, amount: Number(req.body.amount) };
     const { error } = recordSchema.validate(record, { abortEarly: false });
     
     if (error) {

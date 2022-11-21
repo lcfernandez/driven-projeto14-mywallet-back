@@ -82,7 +82,7 @@ export async function getRecords(req, res) {
 
         records.forEach(
             record => {
-                record.type === "expense" ? balance -= record.amount : balance += record.amount;
+                record.type === "expense" ? balance -= Number(record.amount) : balance += Number(record.amount);
                 delete record.user
             }
         );
