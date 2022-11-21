@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Parte do projeto 14 da Driven - API do MyWallet",
   "type": "module",
-  "main": "src/app.js",
+  "main": "app.js",
   "scripts": {
-    "dev": "nodemon src/app.js",
-    "start": "node src/app.js",
+    "dev": "nodemon ./src/app.js",
+    "start": "node ./src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
